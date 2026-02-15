@@ -88,3 +88,19 @@ Desenvolvido por **Prodyug**
 ## 📄 Licença
 
 Projeto para fins educacionais e portfólio.
+
+---
+
+## 📄 Imagens do minegame
+
+<img width="1919" height="1079" alt="Captura de tela 2026-02-15 140304" src="https://github.com/user-attachments/assets/dff82e24-dbba-47d6-96e4-872d32e0c7a3" />
+
+
+<img width="1913" height="1079" alt="Captura de tela 2026-02-15 140327" src="https://github.com/user-attachments/assets/2ea5df35-8193-4e13-812b-91531ba0d574" />
+
+
+<img width="1916" height="1078" alt="Captura de tela 2026-02-15 140358" src="https://github.com/user-attachments/assets/eb865aae-3796-44ce-8e65-3d2f19a3208f" />
+
+
+
+<img width="1917" height="1079" alt="Captura de tela 2026-02-15 140407" src="https://github.com/user-attachments/assets/5246ee06-a1a9-4cb7-bb71-a14190dec2b6" />
