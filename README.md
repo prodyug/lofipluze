@@ -3,7 +3,7 @@
 Um jogo de puzzle estilo slide com estética pixel art lofi.  
 Resolva a imagem trocando as peças o mais rápido possível!
 
-🔗 Jogue online: ()
+🔗 Jogue online: (https://lofi-pluze-prodyug.netlify.app/)
 
 ---
 
