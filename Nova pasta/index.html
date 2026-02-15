@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lofi Slide Puzzle</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- 🌧️ Camada de Chuva -->
+<div class="rain"></div>
+
+<!-- ========================= -->
+<!-- PREVIEW -->
+<!-- ========================= -->
+
+<div id="previewScreen" class="preview-screen">
+  <img id="previewImage" src="" alt="Preview">
+  <h2>🧠 Memorize a imagem...</h2>
+</div>
+
+<!-- ========================= -->
+<!-- TELA DE DERROTA -->
+<!-- ========================= -->
+
+<div id="loseScreen" class="lose-screen">
+  <img src="images/lose.gif" alt="Você perdeu">
+  <h2>💀 Você perdeu!</h2>
+
+  <div class="lose-buttons">
+    <button onclick="restartGame()">🔁 Tentar novamente</button>
+    <button onclick="goToMenu()">🏠 Menu Principal</button>
+  </div>
+</div>
+
+<!-- ========================= -->
+<!-- TELA INICIAL -->
+<!-- ========================= -->
+
+<div id="startScreen" class="start-screen">
+  <h1>🎧 Lofi Slide Puzzle</h1>
+  <p class="lofi-quote">take your time.</p>
+
+  <input type="text" id="nicknameInput" placeholder="Digite seu nickname" />
+
+  <div class="mode-buttons">
+    <button onclick="startGame('normal')">Modo Normal</button>
+    <button onclick="startGame('hard')">Modo Difícil</button>
+  </div>
+</div>
+
+<!-- ========================= -->
+<!-- JOGO -->
+<!-- ========================= -->
+
+<div class="container">
+
+  <h1>🎧 Lofi Slide Puzzle</h1>
+  <p class="lofi-quote"></p>
+
+  <div class="controls">
+    <button id="shuffleBtn">🔀 Embaralhar</button>
+    <button id="musicToggle">🎵 Música: OFF</button>
+  </div>
+
+  <div class="game-wrapper">
+
+    <div class="game-area">
+      <div id="timer" class="timer"></div>
+      <div id="scoreDisplay" class="score"></div>
+      <div id="highScoreDisplay" class="high-score"></div>
+      <div id="board" class="board"></div>
+      <p id="modeWarning" class="mode-warning"></p>
+
+    </div>
+
+    <div class="ranking-panel">
+      <h2>🏆 Ranking do modo Difícil</h2>
+      <ul id="rankingList"></ul>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="win-screen" id="winScreen">
+  <h2>🎉 Você venceu!</h2>
+  <button onclick="nextPuzzle()">Próximo Puzzle</button>
+</div>
+
+<!-- ÁUDIOS -->
+<audio id="swapSound" src="audio/swap.mp3"></audio>
+<audio id="winSound" src="audio/win.mp3"></audio>
+<audio id="bgMusic" src="audio/lofi.mp3" loop></audio>
+<audio id="loseSound" src="audio/lose.mp3"></audio>
+
+<!-- ========================= -->
+<!-- FIREBASE -->
+<!-- ========================= -->
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot } 
+from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "SUA_API_KEY_AQUI",
+  authDomain: "lofi-slide-puzzle.firebaseapp.com",
+  projectId: "lofi-slide-puzzle",
+  storageBucket: "lofi-slide-puzzle.firebasestorage.app",
+  messagingSenderId: "358517730114",
+  appId: "1:358517730114:web:e674b3655a9fb0ea04b6db",
+  measurementId: "G-W96XMX1JTC"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.saveScoreOnline = async function(nickname, time) {
+  await addDoc(collection(db, "ranking"), {
+    nickname: nickname,
+    time: time,
+    createdAt: new Date()
+  });
+};
+
+const q = query(
+  collection(db, "ranking"),
+  orderBy("time"),
+  limit(10)
+);
+
+onSnapshot(q, (snapshot) => {
+  const rankingList = document.getElementById("rankingList");
+  rankingList.innerHTML = "";
+
+  snapshot.forEach((doc, index) => {
+    const data = doc.data();
+    const li = document.createElement("li");
+
+    li.innerHTML =
+      `${index + 1}º - <span>${data.nickname}</span> - ${data.time}s`;
+
+    rankingList.appendChild(li);
+  });
+});
+</script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
